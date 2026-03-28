@@ -2,7 +2,7 @@ program ej2;
 type
   archivoNumeros = file of integer;
 
-procedure ingresarArchivo(var numeros : archivoNumeros)
+procedure ingresarArchivo(var numeros : archivoNumeros);
 var
  num : integer;
 begin
@@ -15,7 +15,7 @@ begin
  end;
 end;
 
-procedure recorrerArchivo(var numeros : archivoNumeros)
+procedure recorrerArchivo(var numeros : archivoNumeros);
 var
  num : integer;
  cantInf : integer;
@@ -26,7 +26,8 @@ begin
   suma := 0;
   cantInf := 0;
   total := 0;
-  
+  promedio := 0;
+
   reset(numeros);
   while not eof(numeros) do begin
     read(numeros, num);
@@ -41,6 +42,8 @@ begin
     promedio := suma / total;
   writeln('el promedio de todos los numeros es de: ', promedio:0:2);
   writeln('la cantidad total de numeros inferiores a 1500 es de: ', cantInf);
+
+  close(numeros);
 end;
 
 var
@@ -50,8 +53,10 @@ begin
   writeln('ingrese el nombre fisico para el archivo');
   readln(nom);
   assign(numeros, nom);
+
   rewrite(numeros);
   ingresarArchivo(numeros);
-  recorrerArchivo(numeros);
   close(numeros);
+
+  recorrerArchivo(numeros);
 end.
